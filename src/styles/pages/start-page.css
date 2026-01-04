@@ -55,7 +55,7 @@
 
   .start-lead {
     max-width: 100%;
-    font-size: 1.1rem;
+    font-size: 1.23rem;
   }
 
   .start-card {
@@ -66,7 +66,7 @@
 /* lg */
 @media (min-width: 1024px) {
   .start-title {
-    font-size: 5rem;
+    font-size: 5.5rem;
   }
 
   .start-card {

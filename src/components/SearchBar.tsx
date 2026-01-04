@@ -1,4 +1,4 @@
-import { FormEvent, useId, useState } from "react";
+import { type FormEvent, useId, useState } from "react";
 import "../styles/components/search-bar.css";
 
 type SearchBarProps = {
