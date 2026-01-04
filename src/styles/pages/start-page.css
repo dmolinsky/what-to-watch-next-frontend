@@ -1,0 +1,37 @@
+.start-page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.start-page-content {
+  text-align: center;
+}
+
+.start-header {
+  margin-bottom: 2rem;
+}
+
+.start-title {
+  font-size: 3rem;
+  margin: 0;
+  color: var(--accent);
+}
+
+.start-lead {
+  margin-top: 0.75rem;
+  color: var(--text-muted);
+}
+
+.start-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+}
+
+.start-body {
+  margin: 0;
+  line-height: 1.6;
+}
