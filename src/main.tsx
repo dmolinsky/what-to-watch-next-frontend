@@ -2,6 +2,8 @@ import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 import "@fontsource/inter/latin-600.css";
 import "@fontsource/chewy/latin-400.css";
+import "@fontsource/comic-neue/latin-300.css";
+import "@fontsource/comic-neue/latin-400.css";
 
 import "./styles/globals.css";
 
