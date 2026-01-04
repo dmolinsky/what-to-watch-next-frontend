@@ -7,6 +7,8 @@ export type RecommendationItem = {
 
 export type ResultsState =
   | { status: "idle" }
+  | { status: "loading"; query: string }
+  | { status: "error"; query: string; message: string }
   | { status: "no_match"; query: string }
   | { status: "has_results"; query: string; items: RecommendationItem[] };
 
@@ -15,7 +17,25 @@ type ResultsPanelProps = {
 };
 
 export function ResultsPanel({ state }: ResultsPanelProps) {
-  if (state.status === "idle") return null;
+    if (state.status === "idle") return null;
+
+    if (state.status === "loading") {
+    return (
+        <section className="results-panel" aria-live="polite">
+        <p className="results-empty">Searching for “{state.query}”…</p>
+        </section>
+    );
+    }
+
+    if (state.status === "error") {
+    return (
+        <section className="results-panel" aria-live="polite">
+        <p className="results-empty">
+            Something went wrong for “{state.query}”. {state.message}
+        </p>
+        </section>
+    );
+    }
 
   if (state.status === "no_match") {
     return (
@@ -32,7 +52,7 @@ export function ResultsPanel({ state }: ResultsPanelProps) {
     <section className="results-panel" aria-live="polite">
       <header className="results-header">
         <div>
-          <h2 className="results-title">Recommendations based on “{state.query}”</h2>
+          <h2 className="results-title">If you enjoyed “{state.query}” you will love: </h2> 
         </div>
       </header>
  
