@@ -16,7 +16,7 @@
 @media (min-width: 1024px) {
   :root {
     --page-padding: 32px;
-    --content-max: 880px;
+    --content-max: 900px;
   }
 }
 
@@ -24,8 +24,6 @@
   color-scheme: dark light;
 
   --page-padding: 16px;
-  --content-max: 680px;
-
   --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   --font-display: "Comic Neue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 
@@ -104,4 +102,7 @@ a {
 
 .container {
   margin-inline: auto;
+  max-width: var(--content-max);
+  margin-top: 7%;
 }
+
