@@ -48,7 +48,9 @@ export function StartPage() {
     <main className="start-page">
       <div className="container start-page-content">
         <header className="start-header">
-          <h1 className="start-title">What to watch next?</h1>
+          <div className="hero-title">
+            <h1>What to watch next?</h1>
+          </div>
           <p className="start-lead">
             Discover your next favorite movie or series based on what you've enjoyed before.
           </p>

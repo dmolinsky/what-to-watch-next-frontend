@@ -21,21 +21,17 @@
 }
 
 :root {
-  color-scheme: dark light;
-
   --page-padding: 16px;
   --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   --font-display: "Comic Neue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
 
-
-  --ink: #050510;
-  --navy: #02033d;
+  --ink: #020214;
+  --navy: #0f0f2e;
   --white: #fcfcfd;
-  --indigo: #390099;
-  --rose: #f3d0d7;
-  --lavender: #898bfb;
+  --indigo: #3C3CE8;
+  --aqua: #7373FF;
+  --lavender: #7373FF;
 
-  /* default = dark */
     --bg: linear-gradient(
     180deg,
     var(--ink) 0%,
@@ -45,7 +41,7 @@
   --text: var(--white);
   --surface: rgba(252, 252, 253, 0.08);
   --border: rgba(252, 252, 253, 0.14);
-  --accent: var(--rose);
+  --accent: var(--aqua);
   --radius: 14px;
 }
 
