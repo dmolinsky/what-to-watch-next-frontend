@@ -61,7 +61,7 @@ export function ResultsPanel({ state }: ResultsPanelProps) {
       <header className="results-header">
         <div>
           <h2 className="results-title">
-            If you enjoyed “{state.query}” you will love: ({state.items.length})
+            If you enjoyed “{state.query}” you will love:
           </h2>
         </div>
       </header>
