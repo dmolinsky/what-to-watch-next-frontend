@@ -2,7 +2,15 @@ import "../styles/components/results-panel.css";
 import { RecommendationCard } from "./RecommendationCard";
 
 export type RecommendationItem = {
+  id: number;
   title: string;
+  year: number;
+  type: "movie" | "series";
+  plot: string;
+  posterUrl: string | null;
+  distance: number;
+  similarity: number;
+  genres: string[] | null;
 };
 
 export type ResultsState =
@@ -10,7 +18,7 @@ export type ResultsState =
   | { status: "loading"; query: string }
   | { status: "error"; query: string; message: string }
   | { status: "no_match"; query: string }
-  | { status: "has_results"; query: string; items: RecommendationItem[] };
+  |{ status: "has_results"; query: string; items: RecommendationItem[] };
 
 type ResultsPanelProps = {
   state: ResultsState;
@@ -52,17 +60,20 @@ export function ResultsPanel({ state }: ResultsPanelProps) {
     <section className="results-panel" aria-live="polite">
       <header className="results-header">
         <div>
-          <h2 className="results-title">If you enjoyed “{state.query}” you will love: </h2> 
+          <h2 className="results-title">
+            If you enjoyed “{state.query}” you will love: ({state.items.length})
+          </h2>
         </div>
       </header>
  
       <div className="results-grid">
         {state.items.map((item, index) => (
-        <RecommendationCard
-            key={item.title}
+          <RecommendationCard
+            key={item.id}
             title={item.title}
+            posterUrl={item.posterUrl}
             index={index}
-        />
+          />
         ))}
       </div>
     </section>

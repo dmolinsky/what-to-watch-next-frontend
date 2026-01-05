@@ -16,7 +16,14 @@
 @media (min-width: 1024px) {
   :root {
     --page-padding: 32px;
-    --content-max: 900px;
+    --content-max: 980px;
+  }
+}
+
+@media (min-width: 1200px) {
+  :root {
+    --page-padding: 32px;
+    --content-max: 1100px;
   }
 }
 
@@ -42,7 +49,7 @@
   --surface: rgba(252, 252, 253, 0.08);
   --border: rgba(252, 252, 253, 0.14);
   --accent: var(--aqua);
-  --radius: 14px;
+  --radius: 8px;
 }
 
 @media (prefers-color-scheme: light) {

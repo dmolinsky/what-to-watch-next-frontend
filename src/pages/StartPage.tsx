@@ -28,7 +28,7 @@ export function StartPage() {
         return;
       }
 
-      const items = await fetchRecommendationsByTitleId(titleId, 5, controller.signal);
+      const items = await fetchRecommendationsByTitleId(titleId, 6, controller.signal);
 
       if (items.length === 0) {
         setResults({ status: "no_match", query: q });
