@@ -17,6 +17,11 @@
   display: inline-block;
   padding: 0.2em 0.9em;
   margin-bottom: 1.5rem;
+
+  background: #898BFB;           /* front */
+  border-right: 4px solid #390099; /* side */
+  border-bottom: 4px solid #390099;
+  transform: rotate(-0.6deg);
 }
 
 .hero-title::before {
