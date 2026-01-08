@@ -41,10 +41,10 @@
   }
 }
 
-/* lg: 3 cols */
+/* lg: 4 cols */
 @media (min-width: 1024px) {
   .results-grid {
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 24px;
   }
 }

@@ -16,7 +16,7 @@ type RecommendationsResponse = RecommendationItem[];
 
 export async function fetchRecommendationsByTitleId(
   titleId: string,
-  limit = 6,
+  limit = 8,
   signal?: AbortSignal
 ): Promise<RecommendationItem[]> {
   return apiGet<RecommendationsResponse>(
