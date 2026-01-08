@@ -7,18 +7,26 @@
   gap: 15px;
 }
 
-/* mobile-first: input above button */
+/* Input */
 .search-input {
   width: 100%;
   border-radius: var(--radius);
-  border: 2px solid var(--border);
+  border: 2px solid var(--ink);
   background: var(--surface);
   color: var(--text);
+
   padding: 14px 14px;
   outline: none;
-  font-family: 'Inter';
+
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 600;
   font-size: 1.1rem;
+
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    box-shadow 160ms ease,
+    transform 120ms ease;
 }
 
 .search-input::placeholder {
@@ -28,53 +36,79 @@
 .search-input:focus,
 .search-input:focus-visible {
   outline: none;
-  box-shadow: none;
-  border-color: var(--aqua);
+  border-color: color-mix(in srgb, var(--lavender) 70%, var(--ink));
+  background: color-mix(in srgb, var(--surface) 92%, var(--indigo));
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--indigo) 22%, transparent);
 }
 
+.search-input:focus-visible {
+  transform: translateY(-1px);
+}
+
+/* Button */
 .search-button {
   width: 100%;
   border-radius: var(--radius);
-  border: 2px solid var(--border);
-  background: transparent;
+  border: 2px solid var(--ink);
+
+  background: color-mix(in srgb, var(--indigo) 18%, transparent);
   color: var(--text);
+
   padding: 12px 14px;
   cursor: pointer;
+
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
   font-size: 1.1rem;
-  cursor: pointer;
+
   transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.12s ease;
+    background-color 160ms ease,
+    border-color 160ms ease,
+    transform 140ms ease,
+    box-shadow 160ms ease;
 }
 
 .search-button:hover {
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
-  border-color: var(--accent);
+  background: color-mix(in srgb, var(--indigo) 28%, transparent);
+  border-color: color-mix(in srgb, var(--lavender) 70%, var(--ink));
+  transform: translate(-2px, -2px);
+  box-shadow: 0 16px 26px rgba(2, 3, 59, 0.28);
 }
 
 .search-button:active {
-  transform: translateY(2px);
+  transform: translate(0px, 1px);
+  box-shadow: 0 8px 14px rgba(2, 3, 59, 0.18);
 }
 
-/* md and up: input + button on one row */
+.search-button:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--indigo) 22%, transparent);
+}
+
+.search-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Layout*/
 @media (min-width: 768px) {
   .search-row {
     grid-template-columns: 1fr auto;
     align-items: center;
+    gap: 18px;
   }
 
-  .search-button {
-    width: auto;
-    padding-inline: 18px;
-  }
   .search-input {
     padding: 18px 18px;
     font-size: 1.05rem;
   }
 
   .search-button {
+    width: auto;
     padding: 20px 22px;
     font-size: 1rem;
+    min-width: 132px; 
   }
 }
