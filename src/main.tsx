@@ -1,9 +1,11 @@
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/latin-500.css";
 import "@fontsource/inter/latin-600.css";
-import "@fontsource/chewy/latin-400.css";
-import "@fontsource/comic-neue/latin-300.css";
-import "@fontsource/comic-neue/latin-400.css";
+import "@fontsource/fredoka/300.css";
+import "@fontsource/fredoka/400.css";
+import "@fontsource/fredoka/500.css";
+import "@fontsource/fredoka/600.css";
+import "@fontsource/fredoka/700.css";
 
 import "./styles/globals.css";
 

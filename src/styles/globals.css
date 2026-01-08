@@ -30,7 +30,7 @@
 :root {
   --page-padding: 16px;
   --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  --font-display: "Comic Neue", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --font-display: "Fredoka", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 
   --ink: #020214;
   --navy: #0f0f2e;
@@ -102,6 +102,13 @@ a {
 .display {
   font-family: var(--font-display);
   letter-spacing: 0.2px;
+  font-weight: 300;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 500;
+  letter-spacing: -1px;
 }
 
 .container {

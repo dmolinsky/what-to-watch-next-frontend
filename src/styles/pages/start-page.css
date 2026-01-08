@@ -13,38 +13,68 @@
 }
 
 .hero-title {
+  --depth: 7px;
+  --side-right: color-mix(in srgb, var(--indigo) 50%, transparent);
+  --side-bottom: var(--navy-light);
+
   position: relative;
   display: inline-block;
-  padding: 0.2em 0.9em;
+  padding: 0.28em 0.9em;
   margin-bottom: 1.5rem;
 
-  background: #898BFB;           /* front */
-  border-right: 4px solid #390099; /* side */
-  border-bottom: 4px solid #390099;
+  background: var(--lavender);
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+
   transform: rotate(-0.6deg);
 }
 
+/* RIGHT 3D FACE */
 .hero-title::before {
   content: "";
   position: absolute;
-  inset: 0; 
-  background: rgba(115, 115, 255, 0.60);
-  border-radius: 2px; 
-  transform: rotate(-0.6deg);
-  z-index: -1;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+  top: 0;
+  left: 100%;
+  width: var(--depth);
+  height: 100%;
+
+  background: var(--side-right);
+  pointer-events: none;
+
+  transform: skewY(45deg);
+  transform-origin: top left;
+
+  border-right: 2px solid var(--ink);
+}
+
+/* BOTTOM 3D FACE */
+.hero-title::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  height: var(--depth);
+
+  background: var(--side-bottom);
+  pointer-events: none;
+
+  transform: skewX(45deg);
+  transform-origin: top left;
+
+  border-bottom: 2px solid var(--ink);
 }
 
 .hero-title h1 {
-  font-family: var(--font-display); 
-  font-size: 2.3rem;
+  font-family: var(--font-display);
+  font-size: clamp(2.1rem, 5vw, 3.2rem);
   line-height: 1.05;
   margin: 0;
   color: #e7fff6;
-  transform: rotate(-0.6deg);
-  margin-bottom: 5px;
-}
 
+  /* keep the internal text aligned with the front */
+  transform: none;
+}
 
 .start-lead {
   margin: 10px auto 0;
