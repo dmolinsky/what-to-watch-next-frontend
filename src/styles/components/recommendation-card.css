@@ -1,9 +1,16 @@
+/* =========================
+   Recommendation Card (3D print)
+   ========================= */
+
 .rec-card {
   padding: 0;
   perspective: 1200px;
 }
 
-/* Flip-in animation */
+/* =========================
+   Enter animation (keep rotate-in)
+   ========================= */
+
 .rec-card--enter {
   opacity: 0;
   transform: perspective(900px) rotateY(-90deg) translateY(10px) scale(0.98);
@@ -26,32 +33,153 @@
   }
 }
 
-/* card (frame + hover) */
-.rec-card-inner {
-  position: relative;
-  background: var(--surface);
-  border: 2px solid #000;
-  border-radius: var(--radius);
-  overflow: hidden;
-  min-height: 200px;
+/* =========================
+   Outer wrapper (wrapper only)
+   ========================= */
 
-  transform-style: preserve-3d;
-  transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1),
-              box-shadow 300ms ease;
-  will-change: transform;
-}
-
-
-.rec-card:hover .rec-card-inner {
-  transform: translateY(-10px) rotateX(2deg) rotateY(-2deg);
-  box-shadow: 0 20px 40px rgba(2, 3, 59, 0.25);
-}
-
-/* Poster + image */
-.rec-poster {
+.rec-card-outer {
   position: relative;
   width: 100%;
   aspect-ratio: 2 / 3;
+  overflow: visible;
+
+  /* settings only */
+  --depth: 9px;
+
+  /* only lift the whole construction (no scale) */
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+  transform-origin: bottom right;
+}
+
+/* Hover: lift up/left + increase thickness so edges "grow" */
+.rec-card:hover .rec-card-outer {
+  --depth: 18px;
+  transform: translate(-6px, -8px);
+}
+
+/* =========================
+   Front face (the actual card)
+   ========================= */
+
+.rec-card-inner {
+  position: relative;
+  z-index: 3;
+
+  width: 100%;
+  height: 100%;
+
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  border-radius: var(--radius);
+  overflow: hidden;
+
+  will-change: transform;
+}
+
+/* =========================
+   3D RIGHT face
+   ========================= */
+
+.rec-3d-right {
+  position: absolute;
+  top: 0;
+  left: 100%;
+
+  width: var(--depth);
+  height: 98%;
+  margin-top: 2%;
+
+  z-index: 2;
+  pointer-events: none;
+
+  /* keep your indigo opacity */
+  background: color-mix(in srgb, var(--indigo) 75%, transparent);
+
+  transform: skewY(45deg);
+  transform-origin: top left;
+
+  /* grow smoothly when --depth changes */
+  transition:
+    width 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    height 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin-top 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* only outer edge */
+.rec-3d-right::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-right: 2px solid var(--ink);
+}
+
+/* =========================
+   3D BOTTOM face
+   ========================= */
+
+.rec-3d-bottom {
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  width: 98%;
+  margin-left: 2%;
+  height: var(--depth);
+
+  z-index: 1;
+  pointer-events: none;
+
+  /* restore your bottom color */
+  background: var(--navy-light);
+
+  transform: skewX(45deg);
+  transform-origin: top left;
+
+  /* grow smoothly when --depth changes */
+  transition:
+    height 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    width 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    margin-left 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* only outer edge */
+.rec-3d-bottom::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-bottom: 2px solid var(--ink);
+}
+
+/* =========================
+   Corner fill (stabiliserar hörnet)
+   ========================= */
+
+.rec-card-outer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+
+  /* match bottom so the “edge color” stays consistent */
+  background: var(--navy-light);
+  border-radius: var(--radius);
+
+  /* follows depth */
+  transform: translate(var(--depth), var(--depth));
+  transform-origin: bottom right;
+
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* =========================
+   Poster + image (fills the front)
+   ========================= */
+
+.rec-poster {
+  position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .rec-img {
@@ -61,7 +189,14 @@
   display: block;
 }
 
-/* Title overlay */
+.rec-img--fallback {
+  background: rgba(252, 252, 253, 0.06);
+}
+
+/* =========================
+   Title overlay (keep your previous look)
+   ========================= */
+
 .rec-title-overlay {
   position: absolute;
   left: 0;
@@ -69,7 +204,7 @@
   bottom: 0;
   padding: 12px 14px;
 
-  background: rgba(115, 115, 255, 0.80);
+  background: rgba(115, 115, 255, 0.8);
 }
 
 .rec-title {
@@ -88,7 +223,10 @@
   overflow: hidden;
 }
 
-/* Reduced motion */
+/* =========================
+   Reduced motion
+   ========================= */
+
 @media (prefers-reduced-motion: reduce) {
   .rec-card--enter {
     animation: none;
@@ -96,8 +234,14 @@
     transform: none;
   }
 
-  .rec-card-inner {
+  .rec-card-outer {
     transition: none;
     transform: none;
+  }
+
+  .rec-3d-right,
+  .rec-3d-bottom,
+  .rec-card-outer::after {
+    transition: none;
   }
 }
