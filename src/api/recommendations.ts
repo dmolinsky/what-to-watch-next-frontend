@@ -3,13 +3,21 @@ import { apiGet } from "./client";
 export type RecommendationItem = {
   id: number;
   title: string;
-  year: number;
+  year: number | null;
   type: "movie" | "series";
-  plot: string;
+  genres: string[] | null;
+
+  plot: string | null;
+
+  directors: string | null;
+  actors: string[] | null;
+
+  imdbRating: number | null;
+
   posterUrl: string | null;
+
   distance: number;
   similarity: number;
-  genres: string[] | null;
 };
 
 type RecommendationsResponse = RecommendationItem[];

@@ -73,7 +73,7 @@
 
 html,
 body {
-  height: 100%;
+  height: 110%;
 }
 
 body {
@@ -114,6 +114,6 @@ h1, h2, h3, h4, h5, h6 {
 .container {
   margin-inline: auto;
   max-width: var(--content-max);
-  margin-top: 7%;
+  margin-top: 2%;
 }
 

@@ -217,3 +217,14 @@
     transition: none;
   }
 }
+
+
+.rec-card {
+  cursor: pointer;
+}
+
+.rec-3d-right,
+.rec-3d-bottom,
+.rec-title-overlay {
+  pointer-events: none;
+}

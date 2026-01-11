@@ -4,14 +4,17 @@ type RecommendationCardProps = {
   title: string;
   posterUrl?: string | null;
   index: number;
+  onSelect: () => void;
 };
 
-export function RecommendationCard({ title, posterUrl, index }: RecommendationCardProps) {
+export function RecommendationCard({ title, posterUrl, index, onSelect }: RecommendationCardProps) {
   return (
     <article
       className="rec-card rec-card--enter"
       style={{ animationDelay: `${index * 90}ms` }}
       aria-label={`Recommendation: ${title}`}
+      onClick={onSelect}
+
     >
       <div className="rec-card-outer">
         <div className="rec-card-inner">

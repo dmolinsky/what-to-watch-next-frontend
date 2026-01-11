@@ -1,16 +1,26 @@
 import "../styles/components/results-panel.css";
 import { RecommendationCard } from "./RecommendationCard";
+import { TitleDetails } from "./TitleDetails";
+import { useEffect, useRef } from "react";
 
 export type RecommendationItem = {
   id: number;
   title: string;
-  year: number;
+  year: number | null;
   type: "movie" | "series";
-  plot: string;
+  genres: string[] | null;
+
+  plot: string | null;
+
+  directors: string | null;
+  actors: string[] | null;
+
+  imdbRating: number | null;
+
   posterUrl: string | null;
+
   distance: number;
   similarity: number;
-  genres: string[] | null;
 };
 
 export type ResultsState =
@@ -18,32 +28,49 @@ export type ResultsState =
   | { status: "loading"; query: string }
   | { status: "error"; query: string; message: string }
   | { status: "no_match"; query: string }
-  |{ status: "has_results"; query: string; items: RecommendationItem[] };
+  | { status: "has_results"; query: string; items: RecommendationItem[] };
 
 type ResultsPanelProps = {
   state: ResultsState;
+  selectedTitle: RecommendationItem | null;
+  onSelectTitle: (title: RecommendationItem | null) => void;
 };
 
-export function ResultsPanel({ state }: ResultsPanelProps) {
-    if (state.status === "idle") return null;
+export function ResultsPanel({
+  state,
+  selectedTitle,
+  onSelectTitle,
+}: ResultsPanelProps) {
+  const detailsRef = useRef<HTMLDivElement | null>(null);
 
-    if (state.status === "loading") {
+  useEffect(() => {
+    if (!selectedTitle) return;
+
+    detailsRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
+    });
+  }, [selectedTitle?.id]);
+
+  if (state.status === "idle") return null;
+
+  if (state.status === "loading") {
     return (
-        <section className="results-panel" aria-live="polite">
+      <section className="results-panel" aria-live="polite">
         <p className="results-empty">Searching for “{state.query}”…</p>
-        </section>
+      </section>
     );
-    }
+  }
 
-    if (state.status === "error") {
+  if (state.status === "error") {
     return (
-        <section className="results-panel" aria-live="polite">
+      <section className="results-panel" aria-live="polite">
         <p className="results-empty">
-            Something went wrong for “{state.query}”. {state.message}
+          Something went wrong for “{state.query}”. {state.message}
         </p>
-        </section>
+      </section>
     );
-    }
+  }
 
   if (state.status === "no_match") {
     return (
@@ -58,14 +85,6 @@ export function ResultsPanel({ state }: ResultsPanelProps) {
 
   return (
     <section className="results-panel" aria-live="polite">
-      <header className="results-header">
-        <div>
-          <h2 className="results-title">
-            If you enjoyed “{state.query}” you will love:
-          </h2>
-        </div>
-      </header>
- 
       <div className="results-grid">
         {state.items.map((item, index) => (
           <RecommendationCard
@@ -73,9 +92,27 @@ export function ResultsPanel({ state }: ResultsPanelProps) {
             title={item.title}
             posterUrl={item.posterUrl}
             index={index}
+            onSelect={() => onSelectTitle(item)}
           />
         ))}
       </div>
+
+      {selectedTitle && (
+        <div ref={detailsRef}>
+          <TitleDetails
+            title={{
+              title: selectedTitle.title,
+              type: selectedTitle.type,
+              genres: selectedTitle.genres,
+              year: selectedTitle.year,
+              plot: selectedTitle.plot,
+              director: selectedTitle.directors,
+              actors: selectedTitle.actors,
+              imdb_rating: selectedTitle.imdbRating,
+            }}
+          />
+        </div>
+      )}
     </section>
   );
 }

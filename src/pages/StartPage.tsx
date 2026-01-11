@@ -7,6 +7,8 @@ import { fetchRecommendationsByTitleId } from "../api/recommendations";
 import { lookupTitleId } from "../api/titles";
 
 export function StartPage() {
+
+  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
   const [results, setResults] = useState<ResultsState>({ status: "idle" });
   const abortRef = useRef<AbortController | null>(null);
 
@@ -17,6 +19,8 @@ export function StartPage() {
 
     const q = query.trim();
     if (!q) return;
+
+    setSelectedTitle(null);
 
     setResults({ status: "loading", query: q });
 
@@ -58,7 +62,13 @@ export function StartPage() {
           <SearchBar onSearch={handleSearch} />
         </header>
 
-        <ResultsPanel state={results} />
+        <ResultsPanel
+          state={results}
+          selectedTitle={selectedTitle}
+          onSelectTitle={setSelectedTitle}
+        />
+
+
       </div>
     </main>
   );
