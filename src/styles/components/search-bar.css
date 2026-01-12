@@ -49,7 +49,7 @@
 .search-button {
   width: 100%;
   border-radius: var(--radius);
-  border: 2px solid var(--ink);
+  border: 2px solid color-mix(in srgb, var(--lavender) 30%, transparent);
 
   background: color-mix(in srgb, var(--indigo) 18%, transparent);
   color: var(--text);
@@ -57,15 +57,16 @@
   padding: 12px 14px;
   cursor: pointer;
 
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-weight: 700;
-  font-size: 1.1rem;
+  font-size: 1rem;
 
   transition:
     background-color 160ms ease,
     border-color 160ms ease,
     transform 140ms ease,
     box-shadow 160ms ease;
+
+    text-align: center;
 }
 
 .search-button:hover {

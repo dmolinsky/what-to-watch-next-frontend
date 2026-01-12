@@ -101,7 +101,7 @@ export function TitleDetails({ title, onFindMore }: Props) {
             className="title-details__button title-details__button--primary"
             onClick={onFindMore}
           >
-            Find more like this
+            Find similar titles
           </button>
 
           <a
