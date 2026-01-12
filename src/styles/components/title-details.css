@@ -6,6 +6,7 @@
   border-radius: 10px;
   background: var(--surface, #0b0f1a);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  text-align: left;
 }
 
 .title-details__header {
@@ -32,7 +33,7 @@
 }
 
 .title-details__type {
-  padding: 0.15rem 0.55rem;
+  padding: 0.35rem 0.55rem;
   border-radius: 6px;
   background: rgba(255, 255, 255, 0.08);
   font-size: 0.7rem;
@@ -47,7 +48,7 @@
 .title-details__content {
   display: grid;
   grid-template-columns: 220px 1fr 260px;
-  gap: 1.6rem;
+  gap: 2rem;
   align-items: start;
 }
 
