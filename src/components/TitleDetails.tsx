@@ -96,11 +96,12 @@ export function TitleDetails({ title, onFindMore }: Props) {
         </div>
 
         {/* RIGHT: buttons */}
+
         <div className="title-details__actions">
           <button
             type="button"
             className="title-details__button title-details__button--primary"
-            onClick={onFindMore}
+            onClick={() => onFindMore?.()}
           >
             Find similar titles
           </button>

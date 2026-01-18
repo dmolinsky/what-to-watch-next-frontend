@@ -35,12 +35,14 @@ type ResultsPanelProps = {
   state: ResultsState;
   selectedTitle: RecommendationItem | null;
   onSelectTitle: (title: RecommendationItem | null) => void;
+  onFindMoreLike: (id: number) => void;
 };
 
 export function ResultsPanel({
   state,
   selectedTitle,
   onSelectTitle,
+  onFindMoreLike, 
 }: ResultsPanelProps) {
   const detailsRef = useRef<HTMLDivElement | null>(null);
 
@@ -113,6 +115,7 @@ export function ResultsPanel({
               imdb_rating: selectedTitle.imdbRating,
               imdb_id: selectedTitle.imdbId,
             }}
+            onFindMore={() => onFindMoreLike(selectedTitle.id)}
           />
         </div>
       )}

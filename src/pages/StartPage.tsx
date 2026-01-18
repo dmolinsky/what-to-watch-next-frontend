@@ -2,15 +2,32 @@ import { useRef, useState } from "react";
 import "../styles/pages/start-page.css";
 import { SearchBar } from "../components/SearchBar";
 import { ResultsPanel } from "../components/ResultsPanel";
-import type { ResultsState } from "../components/ResultsPanel";
+import type { ResultsState, RecommendationItem } from "../components/ResultsPanel";
 import { fetchRecommendationsByTitleId } from "../api/recommendations";
 import { lookupTitleId } from "../api/titles";
 
 export function StartPage() {
 
-  const [selectedTitle, setSelectedTitle] = useState<string | null>(null);
+  const [selectedTitle, setSelectedTitle] = useState<RecommendationItem | null>(null);
   const [results, setResults] = useState<ResultsState>({ status: "idle" });
   const abortRef = useRef<AbortController | null>(null);
+
+  async function loadRecommendationsForTitleId(
+    titleId: string,
+    queryLabel: string,
+    controller: AbortSignal
+  ) {
+    const items = await fetchRecommendationsByTitleId(titleId, 8, controller);
+
+    if (items.length === 0) {
+      setResults({ status: "no_match", query: queryLabel });
+      setSelectedTitle(null);
+      return;
+    }
+
+    setResults({ status: "has_results", query: queryLabel, items });
+    setSelectedTitle(items[0]); 
+  }
 
   async function handleSearch(query: string) {
     abortRef.current?.abort();
@@ -21,7 +38,6 @@ export function StartPage() {
     if (!q) return;
 
     setSelectedTitle(null);
-
     setResults({ status: "loading", query: q });
 
     try {
@@ -32,19 +48,34 @@ export function StartPage() {
         return;
       }
 
-      const items = await fetchRecommendationsByTitleId(titleId, 8, controller.signal);
-
-      if (items.length === 0) {
-        setResults({ status: "no_match", query: q });
-        return;
-      }
-
-      setResults({ status: "has_results", query: q, items });
+      await loadRecommendationsForTitleId(titleId, q, controller.signal);
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
 
       const message = err instanceof Error ? err.message : "Unknown error";
       setResults({ status: "error", query: q, message });
+    }
+  }
+
+  async function handleFindMoreLike(id: number) {
+    abortRef.current?.abort();
+    const controller = new AbortController();
+    abortRef.current = controller;
+
+    const label =
+      selectedTitle && selectedTitle.id === id
+        ? `Similar to ${selectedTitle.title}`
+        : `Similar to #${id}`;
+
+    setResults({ status: "loading", query: label });
+
+    try {
+      await loadRecommendationsForTitleId(String(id), label, controller.signal);
+    } catch (err) {
+      if (err instanceof DOMException && err.name === "AbortError") return;
+
+      const message = err instanceof Error ? err.message : "Unknown error";
+      setResults({ status: "error", query: label, message });
     }
   }
 
@@ -66,9 +97,8 @@ export function StartPage() {
           state={results}
           selectedTitle={selectedTitle}
           onSelectTitle={setSelectedTitle}
+          onFindMoreLike={handleFindMoreLike}
         />
-
-
       </div>
     </main>
   );
