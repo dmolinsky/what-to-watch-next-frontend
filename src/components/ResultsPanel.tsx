@@ -16,6 +16,7 @@ export type RecommendationItem = {
   actors: string[] | null;
 
   imdbRating: number | null;
+  imdbId: string | null;
 
   posterUrl: string | null;
 
@@ -101,6 +102,7 @@ export function ResultsPanel({
         <div ref={detailsRef}>
           <TitleDetails
             title={{
+              id: selectedTitle.id,
               title: selectedTitle.title,
               type: selectedTitle.type,
               genres: selectedTitle.genres,
@@ -109,6 +111,7 @@ export function ResultsPanel({
               director: selectedTitle.directors,
               actors: selectedTitle.actors,
               imdb_rating: selectedTitle.imdbRating,
+              imdb_id: selectedTitle.imdbId,
             }}
           />
         </div>

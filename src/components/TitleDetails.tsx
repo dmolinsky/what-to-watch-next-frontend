@@ -2,6 +2,7 @@ import "../styles/components/title-details.css";
 
 type Props = {
   title: {
+    id: number;
     title: string;
     type?: "movie" | "series";
     genres?: string[] | null;
@@ -10,7 +11,7 @@ type Props = {
     director?: string | null;
     actors?: string[] | null;
     imdb_rating?: number | null;
-    imdbUrl?: string | null;
+    imdb_id?: string | null;
   };
   onFindMore?: () => void;
 };
@@ -45,7 +46,7 @@ export function TitleDetails({ title, onFindMore }: Props) {
   const directorLine = formatPeople("Director", title.director);
   const actorsLine = formatActors(title.actors);
 
-  const imdbDisabled = !title.imdbUrl;
+  const imdbDisabled = !title.id;
 
   return (
     <div className="title-details">
@@ -106,9 +107,9 @@ export function TitleDetails({ title, onFindMore }: Props) {
 
           <a
             className={`title-details__button title-details__button--secondary ${imdbDisabled ? "is-disabled" : ""}`}
-            href={title.imdbUrl ?? undefined}
+            href={`https://www.imdb.com/title/${title.imdb_id}/`}
             target="_blank"
-            rel="noreferrer"
+            rel=""
             aria-disabled={imdbDisabled}
             onClick={(e) => {
               if (imdbDisabled) e.preventDefault();

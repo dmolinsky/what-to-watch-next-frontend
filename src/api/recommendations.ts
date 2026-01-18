@@ -13,6 +13,7 @@ export type RecommendationItem = {
   actors: string[] | null;
 
   imdbRating: number | null;
+  imdbId: string | null;
 
   posterUrl: string | null;
 
