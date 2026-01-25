@@ -53,18 +53,6 @@
   --radius: 8px;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    --bg: var(--white);
-    --text: var(--navy);
-    --surface: rgba(2, 3, 59, 0.04);
-    --border: rgba(2, 3, 59, 0.12);
-    --accent: var(--indigo);
-  }
-}
-
-
-/* Bas */
 *,
 *::before,
 *::after {
